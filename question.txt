@@ -1,0 +1,16 @@
+O QUE PRECISA SER FEITO PARA O DESAFIO
+
+CRIAR DOIS ARQUIVOS MAIN
+
+1 - client.go
+2 - server.go
+
+1 - server.go
+* Devera ter requisição http para consumir API que contém o câmbio Dólar e real e retornar formato JSON(utilizar uma struct),
+* deve subir um ENDPOINT pelo Servidor HTTP será 8080.
+* O server deve salvar no banco de dados SQL lite usando o context e struct para ORM.
+* Vai ter context com timeout para consumir API.
+
+2 - client.go
+* Deverá realizar uma requisição HTTP para server.go. deverá salvar no arquivo cotacao.txt no formato Dólar:{valor}.
+* Vai ter context com timeout para consumir API
