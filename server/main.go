@@ -8,7 +8,6 @@ import (
 
 func main() {
 	http.HandleFunc("/cotacao", api.GetCotacao)
-	//println("teste") fixme retirar
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		panic(err)

@@ -1,21 +1,40 @@
 package main
 
-type RespDollarBody struct {
-	USDBRL struct {
-		Code       string `json:"code"`
-		Codein     string `json:"codein"`
-		Name       string `json:"name"`
-		High       string `json:"high"`
-		Low        string `json:"low"`
-		VarBid     string `json:"varBid"`
-		PctChange  string `json:"pctChange"`
-		Bid        string `json:"bid"`
-		Ask        string `json:"ask"`
-		Timestamp  string `json:"timestamp"`
-		CreateDate string `json:"create_date"`
-	}
+import (
+	"Client-Server-API/client/file"
+	"context"
+	"encoding/json"
+	"io"
+	"log"
+	"net/http"
+	"time"
+)
+
+type RespBid struct {
+	Bid string `json:"bid"`
 }
 
 func main() {
+	ctx, cancel := context.WithTimeout(context.Background(), 300*time.Millisecond)
+	defer cancel()
 
+	req, err := http.NewRequestWithContext(ctx, "GET", "http://localhost:8080/cotacao", nil)
+	if err != nil {
+		panic(err)
+	}
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Println("Erro ao requisitar o valor atual do câmbio!")
+	}
+
+	body, err := io.ReadAll(res.Body)
+
+	if err != nil {
+		panic(err)
+	}
+
+	var bid RespBid
+	err = json.Unmarshal(body, &bid)
+	file.WriterFile(bid.Bid)
 }

@@ -63,7 +63,7 @@ func ConvertToModel(body *service.RespDollarBody) CambioDollarModel {
 }
 
 func PersistCambioDollar(model CambioDollarModel) {
-	contextDatabase, cancel := context.WithTimeout(context.Background(), time.Millisecond*400) // <- todo change time to 10ms
+	contextDatabase, cancel := context.WithTimeout(context.Background(), time.Millisecond*10)
 	defer cancel()
 
 	db, err := sql.Open("sqlite3", "clientServerApi.db")
